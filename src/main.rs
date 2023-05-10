@@ -7,8 +7,6 @@ use random_keygen::config::Config;
 use random_keygen::keygen::Password;
 
 fn main() {
-    println!("Welcome to random-keygen!");
-
     let app = autoclap!();
     let args = app
         .arg(

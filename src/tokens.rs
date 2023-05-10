@@ -40,9 +40,9 @@ fn generate_seed() -> [u8; 32] {
 
 fn get_chars(char_set: CharSet) -> Vec<char> {
     match char_set {
-        CharSet::LowerCase => ('a'..='z').into_iter().collect::<Vec<char>>(),
-        CharSet::UpperCase => ('A'..='Z').into_iter().collect::<Vec<char>>(),
-        CharSet::Number => ('0'..='9').into_iter().collect::<Vec<char>>(),
+        CharSet::LowerCase => ('a'..='z').collect::<Vec<char>>(),
+        CharSet::UpperCase => ('A'..='Z').collect::<Vec<char>>(),
+        CharSet::Number => ('0'..='9').collect::<Vec<char>>(),
         CharSet::SpecialChar => vec![
             '!', '#', '$', '%', '&', '*', ']', '[', '(', ')', '{', '}', '+', '-', ',', '=', '/',
             '?',

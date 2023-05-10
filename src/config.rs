@@ -21,7 +21,7 @@ impl Config {
             .unwrap();
 
         Ok(Config {
-            length: length,
+            length,
             include_special_chars: args.get_flag("include_special_chars"),
             include_lowercase_chars: true,
             include_uppercase_chars: true,

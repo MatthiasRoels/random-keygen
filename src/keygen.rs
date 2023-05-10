@@ -16,6 +16,10 @@ impl Password {
             .map(|x| token_sets[x].get_char())
             .collect::<String>();
 
+        if Password::validate(&password, config).is_err() {
+            panic!("Invalid token was generated");
+        }
+
         password
     }
 
