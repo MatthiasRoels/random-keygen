@@ -1,6 +1,7 @@
 use clap::ArgMatches;
 
 const DEFAULT_PASS_LEN: usize = 20;
+const MAX_RETRIES: u32 = 15;
 
 pub struct Config {
     pub length: usize,
@@ -8,6 +9,7 @@ pub struct Config {
     pub include_lowercase_chars: bool,
     pub include_uppercase_chars: bool,
     pub include_numeric_chars: bool,
+    pub max_retries: u32,
 }
 
 impl Config {
@@ -23,9 +25,11 @@ impl Config {
         Ok(Config {
             length,
             include_special_chars: args.get_flag("include_special_chars"),
+            // hard coded for now, but we can easily turn these into CLI args:
             include_lowercase_chars: true,
             include_uppercase_chars: true,
             include_numeric_chars: true,
+            max_retries: MAX_RETRIES,
         })
     }
 }

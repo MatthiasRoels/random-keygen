@@ -7,15 +7,18 @@ pub struct RandomKey {}
 
 impl RandomKey {
     pub fn generate(config: &Config) -> String {
-        let token_vec = RandomKey::get_token_vec(config);
+        for _i in 0..config.max_retries {
+            let token_vec = RandomKey::get_token_vec(config);
 
-        let random_key = RandomKey::get_random_key(token_vec, config.length);
+            let random_key = RandomKey::get_random_key(token_vec, config.length);
 
-        if RandomKey::validate(&random_key, config).is_err() {
-            panic!("Invalid token was generated");
+            if RandomKey::validate(&random_key, config).is_ok() {
+                return random_key;
+            }
         }
 
-        random_key
+        eprintln!("Failed to generate valid token");
+        String::new()
     }
 
     fn get_random_key(mut token_vec: Vec<Tokens>, length: usize) -> String {
