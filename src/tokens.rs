@@ -3,12 +3,12 @@ use rand::rngs::StdRng;
 use rand::{Rng, RngCore, SeedableRng};
 
 pub struct Tokens {
-    pub chars: Vec<char>,
+    pub token_set: Vec<char>,
     pub range: Uniform<usize>,
     pub rng: StdRng,
 }
 
-pub enum CharSet {
+pub enum TokenSetKind {
     LowerCase,
     UpperCase,
     Number,
@@ -16,19 +16,19 @@ pub enum CharSet {
 }
 
 impl Tokens {
-    pub fn new(char_set: CharSet) -> Tokens {
-        let chars = get_chars(char_set);
-        let alphabet_length = chars.len();
+    pub fn new(token_set_kind: TokenSetKind) -> Tokens {
+        let token_set = get_token_set(token_set_kind);
+        let alphabet_length = token_set.len();
 
         Tokens {
-            chars,
+            token_set,
             range: Uniform::new(0, alphabet_length),
             rng: StdRng::from_seed(generate_seed()),
         }
     }
 
-    pub fn get_char(&mut self) -> char {
-        self.chars[self.rng.sample(self.range)]
+    pub fn get_token(&mut self) -> char {
+        self.token_set[self.rng.sample(self.range)]
     }
 }
 
@@ -38,12 +38,12 @@ fn generate_seed() -> [u8; 32] {
     seed
 }
 
-fn get_chars(char_set: CharSet) -> Vec<char> {
-    match char_set {
-        CharSet::LowerCase => ('a'..='z').collect::<Vec<char>>(),
-        CharSet::UpperCase => ('A'..='Z').collect::<Vec<char>>(),
-        CharSet::Number => ('0'..='9').collect::<Vec<char>>(),
-        CharSet::SpecialChar => vec![
+fn get_token_set(token_set_kind: TokenSetKind) -> Vec<char> {
+    match token_set_kind {
+        TokenSetKind::LowerCase => ('a'..='z').collect::<Vec<char>>(),
+        TokenSetKind::UpperCase => ('A'..='Z').collect::<Vec<char>>(),
+        TokenSetKind::Number => ('0'..='9').collect::<Vec<char>>(),
+        TokenSetKind::SpecialChar => vec![
             '!', '#', '$', '%', '&', '*', ']', '[', '(', ')', '{', '}', '+', '-', ',', '=', '/',
             '?',
         ],
