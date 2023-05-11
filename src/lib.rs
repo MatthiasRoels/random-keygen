@@ -1,3 +1,3 @@
 pub mod config;
-pub mod keygen;
+pub mod randomkey;
 pub mod tokens;

@@ -3,22 +3,22 @@ use rand::Rng;
 use crate::config::Config;
 use crate::tokens::{TokenSetKind, Tokens};
 
-pub struct Password {}
+pub struct RandomKey {}
 
-impl Password {
+impl RandomKey {
     pub fn generate(config: &Config) -> String {
-        let token_vec = Password::get_token_vec(config);
+        let token_vec = RandomKey::get_token_vec(config);
 
-        let password = Password::get_password(token_vec, config.length);
+        let random_key = RandomKey::get_random_key(token_vec, config.length);
 
-        if Password::validate(&password, config).is_err() {
+        if RandomKey::validate(&random_key, config).is_err() {
             panic!("Invalid token was generated");
         }
 
-        password
+        random_key
     }
 
-    fn get_password(mut token_vec: Vec<Tokens>, length: usize) -> String {
+    fn get_random_key(mut token_vec: Vec<Tokens>, length: usize) -> String {
         let size = token_vec.len();
 
         (0..length)

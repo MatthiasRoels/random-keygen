@@ -4,7 +4,7 @@ use autoclap::autoclap;
 use clap::{Arg, ArgAction, Command};
 
 use random_keygen::config::Config;
-use random_keygen::keygen::Password;
+use random_keygen::randomkey::RandomKey;
 
 fn main() {
     let app = autoclap!();
@@ -13,7 +13,7 @@ fn main() {
             Arg::new("length")
                 .long("length")
                 .short('l')
-                .help("Password length.")
+                .help("length of the random key.")
                 .required(false),
         )
         .arg(
@@ -31,5 +31,5 @@ fn main() {
         process::exit(1);
     });
 
-    println!("{}", Password::generate(&config));
+    println!("{}", RandomKey::generate(&config));
 }
