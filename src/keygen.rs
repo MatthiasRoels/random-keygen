@@ -51,36 +51,33 @@ impl Password {
     }
 }
 
-fn validate_special_chars(
-    token: &str,
-    must_include_special_char: bool,
-) -> Result<(), &'static str> {
+fn validate_special_chars(token: &str, include_special_char: bool) -> Result<(), &'static str> {
     let all_alphanumeric = token.chars().all(char::is_alphanumeric);
 
-    if all_alphanumeric && must_include_special_char {
+    if all_alphanumeric && include_special_char {
         return Err("No special characters present");
-    } else if !all_alphanumeric {
+    } else if !all_alphanumeric && !include_special_char {
         return Err("Token is not allowed to contain special characters");
     }
     Ok(())
 }
 
-fn validate_lowercase(token: &str, must_include_lowercase: bool) -> Result<(), &'static str> {
-    if !token.chars().any(char::is_lowercase) && must_include_lowercase {
+fn validate_lowercase(token: &str, include_lowercase: bool) -> Result<(), &'static str> {
+    if !token.chars().any(char::is_lowercase) && include_lowercase {
         return Err("No lowercase characters present");
     }
     Ok(())
 }
 
-fn validate_uppercase(token: &str, must_include_uppercase: bool) -> Result<(), &'static str> {
-    if !token.chars().any(char::is_uppercase) && must_include_uppercase {
+fn validate_uppercase(token: &str, include_uppercase: bool) -> Result<(), &'static str> {
+    if !token.chars().any(char::is_uppercase) && include_uppercase {
         return Err("No uppercase characters present");
     }
     Ok(())
 }
 
-fn validate_numbers(token: &str, must_include_digit: bool) -> Result<(), &'static str> {
-    if !token.chars().any(char::is_numeric) && must_include_digit {
+fn validate_numbers(token: &str, include_digit: bool) -> Result<(), &'static str> {
+    if !token.chars().any(char::is_numeric) && include_digit {
         return Err("No numeric characters present");
     }
     Ok(())
